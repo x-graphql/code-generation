@@ -1,0 +1,32 @@
+{
+    "name": "x-graphql/codegen",
+    "description": "Generating PHP code for executing GraphQL",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "symplify/easy-coding-standard": "^12.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "XGraphQL\\Codegen\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "XGraphQL\\Codegen\\Test\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.2",
+        "nette/php-generator": "^3.6 || ^4.0",
+        "symfony/console": "^6.4 || ^7.0",
+        "symfony/string": "^7.0",
+        "webonyx/graphql-php": "^15.9",
+        "x-graphql/delegate": "^0.1.0"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
