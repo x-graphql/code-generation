@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace XGraphQL\Codegen;
 
 use GraphQL\Language\AST\DocumentNode;
+use GraphQL\Language\AST\ExecutableDefinitionNode;
 use GraphQL\Language\AST\FieldNode;
 use GraphQL\Language\AST\FragmentDefinitionNode;
 use GraphQL\Language\AST\FragmentSpreadNode;
 use GraphQL\Language\AST\InlineFragmentNode;
-use GraphQL\Language\AST\NodeList;
 use GraphQL\Language\AST\OperationDefinitionNode;
 use GraphQL\Language\AST\SelectionSetNode;
 use GraphQL\Language\Printer;
 use XGraphQL\Codegen\Exception\RuntimeException;
 
-
+/**
+ * @internal
+ */
 final readonly class Splitter
 {
     public function split(DocumentNode $ast): iterable
@@ -27,41 +29,31 @@ final readonly class Splitter
         $operations = $fragments = [];
 
         foreach ($ast->definitions as $definition) {
+            if (!$definition instanceof ExecutableDefinitionNode) {
+                throw new RuntimeException(
+                    sprintf('Not support generate PHP code from `%s`', Printer::doPrint($definition))
+                );
+            }
+
             if ($definition instanceof FragmentDefinitionNode) {
                 $fragments[$definition->name->value] = $definition;
             }
 
             if ($definition instanceof OperationDefinitionNode) {
-                $operationName = $definition->name?->value;
-
-                if (null === $operationName) {
+                if (null === $definition->name?->value) {
                     throw new RuntimeException(
                         sprintf('Operation `%s` should have name', Printer::doPrint($definition))
                     );
                 }
 
-                if (isset($operations[$operationName])) {
-                    throw new RuntimeException(sprintf('Duplicated operation name: `%`', $operationName));
-                }
-
-                $operations[$operationName] = $definition;
+                $operations[] = $definition;
             }
-
-            throw new RuntimeException(
-                sprintf('Not support generate PHP code from `%s`', Printer::doPrint($definition))
-            );
         }
 
-        foreach ($operations as $name => $definition) {
+        foreach ($operations as $definition) {
             $operationFragments = $this->collectOperationFragments($definition->selectionSet, $fragments);
 
-            yield $name => new DocumentNode(
-                [
-                    'definitions' => new NodeList(
-                        [$definition, ...array_values($operationFragments)]
-                    )
-                ]
-            );
+            yield [$definition, $operationFragments];
         }
     }
 
@@ -108,11 +100,10 @@ final readonly class Splitter
             }
 
             if (null !== $subSelectionSet) {
-                $result += $this->collectFragments($subSelectionSet, $fragments, $visitedFragments);
+                $result += $this->collectOperationFragments($subSelectionSet, $fragments, $visitedFragments);
             }
         }
 
         return $result;
     }
-
 }
