@@ -122,9 +122,9 @@ $this->delegator = $schemaOrDelegator;
 PHP
         );
 
-        foreach ($traits as $traitName) {
-            $namespace->addUse($traitName);
-            $class->addTrait($traitName);
+        foreach ($traits as $trait) {
+            $namespace->addUse($trait);
+            $class->addTrait($trait);
         }
 
         $this->writePhpFile($file);
