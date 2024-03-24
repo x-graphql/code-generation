@@ -20,6 +20,9 @@ use XGraphQL\Codegen\Exception\RuntimeException;
  */
 final readonly class Splitter
 {
+    /**
+     * @throws RuntimeException
+     */
     public function split(DocumentNode $ast): iterable
     {
         /**
@@ -62,6 +65,7 @@ final readonly class Splitter
      * @param array<string, FragmentDefinitionNode> $fragments
      * @param string[] $visitedFragments
      * @return array<string, FragmentDefinitionNode>
+     * @throws RuntimeException
      */
     private function collectOperationFragments(
         SelectionSetNode $selectionSet,

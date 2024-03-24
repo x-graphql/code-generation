@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XGraphQL\Codegen;
 
+use GraphQL\Error\Error;
 use GraphQL\Executor\ExecutionResult;
 use GraphQL\Executor\Promise\Adapter\SyncPromiseAdapter;
 use GraphQL\Executor\Promise\Promise;
@@ -43,6 +44,11 @@ final readonly class Generator
         $this->dumper = new Dumper();
     }
 
+
+    /**
+     * @throws Error
+     * @throws \Exception
+     */
     public function generate(): void
     {
         $ast = $this->parseSource();
