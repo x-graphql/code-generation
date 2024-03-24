@@ -231,18 +231,20 @@ PHP,
 
     private function writePhpFile(PhpFile $file): void
     {
-        if (!is_dir($this->destinationPath)) {
+        $destPath = rtrim($this->destinationPath, DIRECTORY_SEPARATOR);
+
+        if (!is_dir($destPath)) {
             throw new \RuntimeException(
-                sprintf('Please make sure destination path: `%s` exists before generate code', $this->destinationPath)
+                sprintf('Please make sure destination path: `%s` exists before generate code', $destPath)
             );
         }
 
         $class = array_key_first($file->getClasses());
-        $classPath = str_replace([$this->namespace, '\\'], ['', '/'], $class);
+        $classPath = str_replace([$this->namespace, '\\'], ['', DIRECTORY_SEPARATOR], $class);
         $path = sprintf(
             '%s/%s.php',
-            rtrim($this->destinationPath, '/'),
-            ltrim($classPath, '/')
+            $destPath,
+            ltrim($classPath, DIRECTORY_SEPARATOR)
         );
         $info = pathinfo($path);
 
