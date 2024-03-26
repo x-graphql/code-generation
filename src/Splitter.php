@@ -43,13 +43,19 @@ final readonly class Splitter
             }
 
             if ($definition instanceof OperationDefinitionNode) {
-                if (null === $definition->name?->value) {
+                $operationName = $definition->name?->value;
+
+                if (null === $operationName) {
                     throw new RuntimeException(
                         sprintf('Operation `%s` should have name', Printer::doPrint($definition))
                     );
                 }
 
-                $operations[] = $definition;
+                if (isset($operations[$operationName])) {
+                    throw new RuntimeException(sprintf('Duplicate operation name `%s`', $operationName));
+                }
+
+                $operations[$operationName] = $definition;
             }
         }
 
