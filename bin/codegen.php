@@ -14,7 +14,6 @@ use XGraphQL\Codegen\Generator;
 
 use function Symfony\Component\String\u;
 
-exit(
 (new class {
 
     private Application $app;
@@ -68,9 +67,9 @@ exit(
         $dispatcher->addListener(ConsoleEvents::COMMAND, $this->prepareGeneratorsForCodegenCommand(...));
     }
 
-    public function run(): int
+    public function run(): void
     {
-        return $this->app->run();
+        exit($this->app->run());
     }
 
     private function prepareConfigFileForInitCommand(ConsoleCommandEvent $event): void
@@ -127,5 +126,4 @@ exit(
             $config['queryClassName'] ?? $defaultQueryClassName,
         );
     }
-})->run()
-);
+})->run();
