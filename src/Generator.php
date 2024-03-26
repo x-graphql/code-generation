@@ -98,7 +98,7 @@ final readonly class Generator
     private function generateOperationTrait(OperationDefinitionNode $operation, array $fragments): string
     {
         $operationNormalized = AST::toArray($operation);
-        $fragmentsNormalized = array_map(fn(FragmentDefinitionNode $fragment) => AST::toArray($fragment), $fragments);
+        $fragmentsNormalized = array_map(fn (FragmentDefinitionNode $fragment) => AST::toArray($fragment), $fragments);
         $operationName = $operation->name->value;
         $hasVariables = 0 < $operation->variableDefinitions->count();
         $file = $this->generatePhpFile();
