@@ -68,7 +68,7 @@ final readonly class Generator
 
         if (!is_dir($dir) || !is_readable($dir)) {
             throw new RuntimeException(
-                sprintf('Directory `%s` does not exists or not have permission to read files', $dir)
+                sprintf('Directory `%s` does not exists or not have read permission', $dir)
             );
         }
 
@@ -79,7 +79,7 @@ final readonly class Generator
         );
 
         foreach ($dirIterator as $matches) {
-            $src = file_get_contents($matches[0]) . PHP_EOL;
+            $src .= file_get_contents($matches[0]) . PHP_EOL;
         }
 
         if ('' === $src) {
@@ -103,7 +103,7 @@ final readonly class Generator
         $hasVariables = 0 < $operation->variableDefinitions->count();
         $file = $this->generatePhpFile();
 
-        $namespaceName = sprintf('%s\\%s', $this->namespace, $this->queryClassName);
+        $namespaceName = ltrim(sprintf('%s\\%s', $this->namespace, $this->queryClassName), '\\');
         $namespace = $file->addNamespace($namespaceName);
 
         $namespace->addUse(Promise::class);
@@ -234,9 +234,9 @@ PHP
         $destPath = rtrim($this->destinationPath, DIRECTORY_SEPARATOR);
 
         if (!is_dir($destPath) || !is_writable($destPath)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
-                    'Please make sure destination path: `%s` exists and have write permission before generate code',
+                    'Please make sure destination path: `%s` exists and have write permission',
                     $destPath
                 )
             );

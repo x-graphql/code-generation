@@ -1,0 +1,16 @@
+fragment CountryInfo on Country {
+    ... on Flag {
+        flag
+    }
+
+    name
+    ...CountryInfo
+}
+
+
+query getCountry($code: Boolean!) {
+    country(code: $code) {
+        ...CountryInfo
+
+    }
+}

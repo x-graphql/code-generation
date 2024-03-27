@@ -1,6 +1,7 @@
 coverage/
 vendor/
 .idea/
+tests/generated/
 composer.lock
 clover.xml
 .phpunit.result.cache
