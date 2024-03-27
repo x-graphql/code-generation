@@ -57,7 +57,7 @@ use function Symfony\Component\String\u;
                 '-f',
                 InputOption::VALUE_OPTIONAL,
                 'XGraphQL x-graphql-codegen config file path',
-                sprintf('%s/x-graphql-x-graphql-x-graphql-codegen.php', getcwd()),
+                sprintf('%s/x-graphql-codegen.php', getcwd()),
             )
         );
         $app->addCommands([new GenerateCommand(), new InitConfigCommand()]);
@@ -97,7 +97,7 @@ use function Symfony\Component\String\u;
 
         if (!file_exists($configFile)) {
             throw new InvalidOptionException(
-                sprintf('Not found config file: `%s`, use `x-graphql:x-graphql-codegen:init-config` to generate it', $configFile)
+                sprintf('Not found config file: `%s`, use `x-graphql:codegen:init-config` to generate it', $configFile)
             );
         }
 

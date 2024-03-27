@@ -12,7 +12,7 @@ Getting Started
 Install this package via [Composer](https://getcomposer.org)
 
 ```shell
-composer require x-graphql/x-graphql-codegen
+composer require x-graphql/codegen
 ```
 
 Usages
@@ -21,7 +21,7 @@ Usages
 After install, you need to generate config file with command bellow:
 
 ```shell
-./vendor/bin/x-graphql-codegen x-graphql:x-graphql-codegen:init-config
+./vendor/bin/x-graphql-codegen x-graphql:codegen:init-config
 ```
 
 Your config file `x-graphql-codegen.php` initialized look like:

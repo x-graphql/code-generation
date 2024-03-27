@@ -35,7 +35,7 @@ final class InitConfigCommand extends Command
         copy(self::TEMPLATE_FILE_PATH, $this->configFile);
 
         $style->info(sprintf('Init config file: `%s` successful', $this->configFile));
-        $style->info('Now you can generate code with command: `x-graphql:x-graphql-codegen:generate`');
+        $style->info('Now you can generate code with command: `x-graphql:codegen:generate`');
 
         return self::SUCCESS;
     }
