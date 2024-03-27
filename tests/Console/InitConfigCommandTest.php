@@ -6,6 +6,7 @@ namespace XGraphQL\Codegen\Test\Console;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Filesystem\Filesystem;
 use XGraphQL\Codegen\Console\InitConfigCommand;
 
 class InitConfigCommandTest extends TestCase
@@ -14,10 +15,12 @@ class InitConfigCommandTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
+        $fileSystem = new Filesystem();
 
-        @mkdir(__DIR__ . '../generated');
-        @unlink(self::CONFIG_FILE);
+        $fileSystem->remove(self::CONFIG_FILE);
+        $fileSystem->mkdir(dirname(self::CONFIG_FILE));
+
+        parent::setUp();
     }
 
     public function testInitConfig(): void
