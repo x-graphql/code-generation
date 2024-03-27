@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(name: 'x-graphql:init-config', description: 'Help to create config file')]
+#[AsCommand(name: 'x-graphql:codegen:init-config', description: 'Help to create config file')]
 final class InitConfigCommand extends Command
 {
     public const TEMPLATE_FILE_PATH = __DIR__ . '/../../resources/config.template.php';
@@ -35,6 +35,7 @@ final class InitConfigCommand extends Command
         copy(self::TEMPLATE_FILE_PATH, $this->configFile);
 
         $style->info(sprintf('Init config file: `%s` successful', $this->configFile));
+        $style->info('Now you can generate code with command: `x-graphql:x-graphql-codegen:generate`');
 
         return self::SUCCESS;
     }

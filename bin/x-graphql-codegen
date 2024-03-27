@@ -3,4 +3,4 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/codegen.php';
+require __DIR__ . '/x-graphql-codegen.php';

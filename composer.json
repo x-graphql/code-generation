@@ -8,7 +8,7 @@
         "symplify/easy-coding-standard": "^12.1"
     },
     "bin": [
-        "bin/codegen"
+        "bin/x-graphql-codegen"
     ],
     "license": "MIT",
     "autoload": {

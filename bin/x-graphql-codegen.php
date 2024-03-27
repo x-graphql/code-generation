@@ -8,7 +8,7 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Exception\InvalidOptionException;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use XGraphQL\Codegen\Console\CodegenCommand;
+use XGraphQL\Codegen\Console\GenerateCommand;
 use XGraphQL\Codegen\Console\InitConfigCommand;
 use XGraphQL\Codegen\Generator;
 
@@ -56,11 +56,11 @@ use function Symfony\Component\String\u;
                 'config-file',
                 '-f',
                 InputOption::VALUE_OPTIONAL,
-                'XGraphQL codegen config file path',
-                sprintf('%s/x-graphql-codegen.php', getcwd()),
+                'XGraphQL x-graphql-codegen config file path',
+                sprintf('%s/x-graphql-x-graphql-x-graphql-codegen.php', getcwd()),
             )
         );
-        $app->addCommands([new CodegenCommand(), new InitConfigCommand()]);
+        $app->addCommands([new GenerateCommand(), new InitConfigCommand()]);
         $app->setDispatcher($dispatcher);
 
         $dispatcher->addListener(ConsoleEvents::COMMAND, $this->prepareConfigFileForInitCommand(...));
@@ -89,7 +89,7 @@ use function Symfony\Component\String\u;
     {
         $command = $event->getCommand();
 
-        if (!$command instanceof CodegenCommand) {
+        if (!$command instanceof GenerateCommand) {
             return;
         }
 
@@ -97,7 +97,7 @@ use function Symfony\Component\String\u;
 
         if (!file_exists($configFile)) {
             throw new InvalidOptionException(
-                sprintf('Not found config file: `%s`, use `init-config` to generate it', $configFile)
+                sprintf('Not found config file: `%s`, use `x-graphql:x-graphql-codegen:init-config` to generate it', $configFile)
             );
         }
 

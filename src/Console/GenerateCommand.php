@@ -11,8 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use XGraphQL\Codegen\Generator;
 
-#[AsCommand(name: 'x-graphql:codegen', description: 'Generate PHP code for executing GraphQL')]
-final class CodegenCommand extends Command
+#[AsCommand(name: 'x-graphql:codegen:generate', description: 'Generate PHP code for executing GraphQL')]
+final class GenerateCommand extends Command
 {
     /**
      * @var Generator[]

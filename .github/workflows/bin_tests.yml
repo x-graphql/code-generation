@@ -28,6 +28,6 @@ jobs:
 
       - uses: "ramsey/composer-install@v2"
         
-      - run: chmod +x ./bin/codegen
+      - run: chmod +x ./bin/x-graphql-codegen
 
-      - run: ./bin/codegen
+      - run: ./bin/x-graphql-codegen

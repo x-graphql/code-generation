@@ -7,10 +7,10 @@ namespace XGraphQL\Codegen\Test\Console;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
-use XGraphQL\Codegen\Console\CodegenCommand;
+use XGraphQL\Codegen\Console\GenerateCommand;
 use XGraphQL\Codegen\Generator;
 
-class CodegenCommandTest extends TestCase
+class GenerateCommandTest extends TestCase
 {
     private const DESTINATION_PATH = __DIR__ . '/../generated';
 
@@ -28,7 +28,7 @@ class CodegenCommandTest extends TestCase
 
     public function testRunCommand()
     {
-        $command = new CodegenCommand();
+        $command = new GenerateCommand();
         $command->setGenerators(
             [
                 'test' => new Generator(
@@ -47,7 +47,7 @@ class CodegenCommandTest extends TestCase
 
     public function testRunCommandWithEmptyGenerators()
     {
-        $command = new CodegenCommand();
+        $command = new GenerateCommand();
         $command->setGenerators([]);
         $tester = new CommandTester($command);
         $tester->execute([]);
